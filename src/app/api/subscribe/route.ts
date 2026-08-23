@@ -1,15 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getDictionary } from "@/lib/i18n";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
-  let body: { email?: string; source?: string; company?: string };
+  let body: {
+    email?: string;
+    source?: string;
+    company?: string;
+    locale?: string;
+  };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
+
+  const dict = getDictionary(body.locale === "fr" ? "fr" : "en");
 
   // Honeypot — a hidden field real users never fill, bots often do.
   if (body.company) {
@@ -19,7 +27,7 @@ export async function POST(req: NextRequest) {
   const email = (body.email ?? "").trim().toLowerCase();
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json(
-      { error: "That doesn't look like a valid email." },
+      { error: dict.subscribeErrorInvalidEmail },
       { status: 400 },
     );
   }
@@ -34,7 +42,7 @@ export async function POST(req: NextRequest) {
     });
   } catch {
     return NextResponse.json(
-      { error: "Something went wrong. Try again." },
+      { error: dict.subscribeErrorGeneric },
       { status: 500 },
     );
   }

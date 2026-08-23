@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -21,6 +22,7 @@ const plexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://raio-journal.vercel.app"),
   title: {
     default: "raio journal",
     template: "%s — raio journal",
@@ -29,10 +31,13 @@ export const metadata: Metadata = {
     "Notes from building raio, an open-source instant-payment foundation in Rust for African rails and interoperability.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const headerList = await headers();
+  const lang = headerList.get("x-locale") === "fr" ? "fr" : "en";
+
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`${fraunces.variable} ${plexMono.variable} ${plexSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">

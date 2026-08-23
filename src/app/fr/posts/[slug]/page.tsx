@@ -9,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return buildPostMetadata(slug, "en");
+  return buildPostMetadata(slug, "fr");
 }
 
 export default async function Page({
@@ -18,5 +18,5 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <PostView locale="en" slug={slug} />;
+  return <PostView locale="fr" slug={slug} />;
 }

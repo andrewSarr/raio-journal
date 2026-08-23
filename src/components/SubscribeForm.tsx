@@ -1,8 +1,16 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { getDictionary, Locale } from "@/lib/i18n";
 
-export function SubscribeForm({ source = "blog" }: { source?: string }) {
+export function SubscribeForm({
+  source = "blog",
+  locale = "en",
+}: {
+  source?: string;
+  locale?: Locale;
+}) {
+  const dict = getDictionary(locale);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">(
     "idle",
@@ -22,17 +30,17 @@ export function SubscribeForm({ source = "blog" }: { source?: string }) {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source, company }),
+        body: JSON.stringify({ email, source, company, locale }),
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? "Something went wrong.");
+        setError(data.error ?? dict.subscribeErrorGeneric);
         setStatus("error");
         return;
       }
       setStatus("done");
     } catch {
-      setError("Network error. Try again.");
+      setError(dict.subscribeErrorNetwork);
       setStatus("error");
     }
   }
@@ -40,7 +48,7 @@ export function SubscribeForm({ source = "blog" }: { source?: string }) {
   if (status === "done") {
     return (
       <p className="text-sm font-medium text-success">
-        You&apos;re on the list — thanks.
+        {dict.subscribeSuccess}
       </p>
     );
   }
@@ -53,7 +61,7 @@ export function SubscribeForm({ source = "blog" }: { source?: string }) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
+          placeholder={dict.subscribeEmailPlaceholder}
           className="flex-1 min-w-0 border border-border rounded-md px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rust/40 focus:border-rust"
         />
         {/* Honeypot: hidden from real users, bots tend to fill every field. */}
@@ -70,7 +78,7 @@ export function SubscribeForm({ source = "blog" }: { source?: string }) {
           disabled={status === "loading"}
           className="bg-rust hover:bg-rust-deep disabled:opacity-60 text-cream font-semibold text-sm rounded-md px-4 py-2.5 whitespace-nowrap cursor-pointer transition-colors"
         >
-          {status === "loading" ? "..." : "Subscribe"}
+          {status === "loading" ? dict.subscribeButtonLoading : dict.subscribeButton}
         </button>
       </div>
       {status === "error" ? (
