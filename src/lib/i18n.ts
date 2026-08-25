@@ -6,7 +6,7 @@ export const dictionaries = {
     heroEyebrow: "Open source · Rust",
     heroTitle: "Notes from building raio.",
     heroLead:
-      "Design decisions, architecture, and progress on an open-source instant-payment foundation in Rust — built for African rails and interoperability.",
+      "Design decisions, architecture, and progress on an open-source instant-payment foundation in Rust — built for interoperability across providers, currencies, and borders.",
     subscribeEmailPlaceholder: "you@example.com",
     subscribeButton: "Subscribe",
     subscribeButtonLoading: "...",
@@ -28,7 +28,7 @@ export const dictionaries = {
     heroEyebrow: "Open source · Rust",
     heroTitle: "Les coulisses de raio.",
     heroLead:
-      "Décisions de conception, architecture, et avancement d'une fondation de paiement instantané open source en Rust — conçue pour les rails africains et l'interopérabilité.",
+      "Décisions de conception, architecture, et avancement d'une fondation de paiement instantané open source en Rust — conçue pour l'interopérabilité entre fournisseurs, devises et frontières.",
     subscribeEmailPlaceholder: "vous@exemple.com",
     subscribeButton: "S'abonner",
     subscribeButtonLoading: "...",

@@ -6,7 +6,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "raio journal",
   description:
-    "Décisions de conception, architecture, et avancement d'une fondation de paiement instantané open source en Rust — conçue pour les rails africains et l'interopérabilité.",
+    "Décisions de conception, architecture, et avancement d'une fondation de paiement instantané open source en Rust — conçue pour l'interopérabilité entre fournisseurs, devises et frontières.",
   alternates: {
     canonical: "/fr",
     languages: { en: "/", fr: "/fr", "x-default": "/" },

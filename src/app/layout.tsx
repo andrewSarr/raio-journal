@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s — raio journal",
   },
   description:
-    "Notes from building raio, an open-source instant-payment foundation in Rust for African rails and interoperability.",
+    "Notes from building raio, an open-source instant-payment foundation in Rust built for interoperability across providers, currencies, and borders.",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
